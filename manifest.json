@@ -1,0 +1,22 @@
+{
+    "name": "Linkedin Clean",
+    "description": "A plugin to keep Linkedin Clean!",
+    "version": "0.1",
+    "permissions": [
+        "tabs"
+    ],
+    "manifest_version": 3,
+    "background": {
+        "service_worker": "background.js"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "*://*.linkedin.com/*"
+            ],
+            "js": [
+                "content.js"
+            ]
+        }
+    ]
+}

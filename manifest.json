@@ -1,7 +1,7 @@
 {
     "name": "Linkedin Clean",
     "description": "A plugin to keep Linkedin Clean!",
-    "version": "0.1",
+    "version": "0.3",
     "permissions": [
         "tabs"
     ],

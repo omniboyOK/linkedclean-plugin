@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="../styles/semantic.min.css">
+    <link rel="stylesheet" href="./popup.css">
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <h2 class="ui header" id="main-header">
+        <img src="../images/linkedclean128.png" class="ui circular image">
+        LinkedClean
+    </h2>
+    <div class="ui divider"></div>
+    <div class="ui container" id="main-container">
+        <h4>Opciones</h4>
+        <form class="ui form" id="popup-form">
+            <div class="grouped fields">
+                <div class="field">
+                    <div class="ui slider checkbox">
+                        <input type="checkbox" name="debug" checked="checked">
+                        <label><span>💻</span> Debug</label>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui slider checkbox">
+                        <input type="checkbox" name="polls" checked="checked">
+                        <label><span>📃</span>Cuestionarios</label>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="ui divider"></div>
+        <p>Estos cambios requieren recargar la página web</p>
+    </div>
+    <script src="./popup.js"></script>
+</body>
+
+</html>

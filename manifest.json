@@ -1,9 +1,10 @@
 {
     "name": "Linkedin Clean",
     "description": "A plugin to keep Linkedin Clean!",
-    "version": "0.3",
+    "version": "0.4",
     "permissions": [
-        "tabs"
+        "tabs",
+        "storage"
     ],
     "manifest_version": 3,
     "background": {
@@ -15,12 +16,12 @@
                 "*://*.linkedin.com/*"
             ],
             "js": [
-                "content.js"
+                "content/content.js"
             ]
         }
     ],
     "action": {
-        "default_popup": "popup.html",
+        "default_popup": "popup/popup.html",
         "default_icon": {
             "16": "/images/linkedclean16.png",
             "32": "/images/linkedclean32.png",

@@ -1,3 +1,14 @@
+// To know if plugin is runing unpacked
+const IS_DEV_MODE = !("update_url" in chrome.runtime.getManifest());
+// Base class for a feed card
+const BASE_FEED_CLASS = "feed-shared-update-v2";
+// For some reason the first item on a feed list has different classes
+const BASE_FEED_FIRST_ITEM_CLASS =
+  "div.feed-shared-update-v2, div.occludable-update";
+// User description class
+const USER_DESCRIPTION_CLASS = "feed-shared-actor__description";
+
+// ---- CACHE ----
 // In-page cache of the user's options
 options = {
   debug: false,
@@ -13,24 +24,24 @@ chrome.storage.sync.get("options", function (data) {
     // if not then save the options
     chrome.storage.sync.set({ options });
   }
-  console.log(options);
 });
 
-const IS_DEV_MODE = !("update_url" in chrome.runtime.getManifest());
-
+// ---- MAIN FUNCTION ----
+/** Here we execute all the features based on user preference */
 window.onload = function () {
   options.polls && filterPolls();
 };
 
+// ---- FUNCTIONS ----
 function filterPolls() {
-  // This observer will actively hide when loading more feed
+  // Listen to DOM mutations to filter new feeds
   let observer = new MutationObserver((mutations) => {
     for (let mutation of mutations) {
       if (mutation.type === "childList") {
         for (let addedNode of mutation.addedNodes) {
           if (
             addedNode.nodeName === "DIV" &&
-            (addedNode.classList.contains("feed-shared-update-v2") ||
+            (addedNode.classList.contains(BASE_FEED_CLASS) ||
               addedNode.classList.contains("occludable-update"))
           ) {
             if (isPoll(addedNode)) {
@@ -44,11 +55,16 @@ function filterPolls() {
     }
   });
 
-  // This will capture the initial doc
-  // The observable won't capture it
-  let initialPollList = document.querySelectorAll(
-    "div.feed-shared-update-v2, div.occludable-update"
-  );
+  filterPollOnLoad();
+
+  // We put the observer over the document
+  // TODO: better capture of nodes instead of document would be performant
+  observer.observe(document, { childList: true, subtree: true });
+}
+
+function filterPollOnLoad() {
+  // This will capture the initial doc since the observable won't capture it
+  let initialPollList = document.querySelectorAll(BASE_FEED_FIRST_ITEM_CLASS);
 
   for (i = 0; i < initialPollList.length; ++i) {
     if (isPoll(initialPollList[i])) {
@@ -57,10 +73,6 @@ function filterPolls() {
         : initialPollList[i].classList.add("hidden");
     }
   }
-
-  // We put the observer over the document
-  // TODO: better capture of nodes instead of document would be performant
-  observer.observe(document, { childList: true, subtree: true });
 }
 
 // Check from component if it is or contains a poll
@@ -68,6 +80,7 @@ function isPoll(html) {
   return html.querySelector("div.feed-shared-poll");
 }
 
+// A simple linkedin card for debuging
 function createFlag(element, type, background = "#fff", color = "#000") {
   // Create flag text
   let text = `This is a hidden ${type}`;

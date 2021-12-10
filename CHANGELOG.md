@@ -7,6 +7,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.2] - 2020-12-05
+
+### Added
+
+- Changing options will refresh the tab
+
+### Changed
+
+- Debug option now hide on production
+
+### Fixed
+
+- Removed background script dependency as it wasn't necesary
+
+## [0.6.1] - 2020-12-05
+
+### Changed
+
+- Debug flag style now change border instead of background color
+- Moved filter polls to reuse the mutation logic
+
+### Fixed
+
+- margin typo on debug flag
+
 ## [0.5] - 2020-12-05
 
 ### Changed

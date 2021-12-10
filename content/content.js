@@ -29,37 +29,42 @@ chrome.storage.sync.get("options", function (data) {
 // ---- MAIN FUNCTION ----
 /** Here we execute all the features based on user preference */
 window.onload = function () {
-  options.polls && filterPolls();
+  mainFilter();
 };
 
 // ---- FUNCTIONS ----
-function filterPolls() {
+function mainFilter() {
   // Listen to DOM mutations to filter new feeds
   let observer = new MutationObserver((mutations) => {
     for (let mutation of mutations) {
       if (mutation.type === "childList") {
-        for (let addedNode of mutation.addedNodes) {
-          if (
-            addedNode.nodeName === "DIV" &&
-            (addedNode.classList.contains(BASE_FEED_CLASS) ||
-              addedNode.classList.contains("occludable-update"))
-          ) {
-            if (isPoll(addedNode)) {
-              options.debug
-                ? createFlag(addedNode, "Poll", "#FF5403", "#FFCA03")
-                : addedNode.classList.add("hidden");
-            }
-          }
-        }
+        options.polls && filterPolls(mutation);
       }
     }
   });
 
-  filterPollOnLoad();
+  // On first load
+  options.polls && filterPollOnLoad();
 
   // We put the observer over the document
   // TODO: better capture of nodes instead of document would be performant
   observer.observe(document, { childList: true, subtree: true });
+}
+
+function filterPolls(mutation) {
+  for (let addedNode of mutation.addedNodes) {
+    if (
+      addedNode.nodeName === "DIV" &&
+      (addedNode.classList.contains(BASE_FEED_CLASS) ||
+        addedNode.classList.contains("occludable-update"))
+    ) {
+      if (isPoll(addedNode)) {
+        options.debug
+          ? createFlag(addedNode, "Poll", "#FF5403", "#000")
+          : addedNode.classList.add("hidden");
+      }
+    }
+  }
 }
 
 function filterPollOnLoad() {
@@ -69,7 +74,7 @@ function filterPollOnLoad() {
   for (i = 0; i < initialPollList.length; ++i) {
     if (isPoll(initialPollList[i])) {
       options.debug
-        ? createFlag(initialPollList[i], "Poll", "#FF5403", "#FFCA03")
+        ? createFlag(initialPollList[i], "Poll", "#FF5403", "#000")
         : initialPollList[i].classList.add("hidden");
     }
   }
@@ -81,7 +86,7 @@ function isPoll(html) {
 }
 
 // A simple linkedin card for debuging
-function createFlag(element, type, background = "#fff", color = "#000") {
+function createFlag(element, type, border = "#000", color = "#000") {
   // Create flag text
   let text = `This is a hidden ${type}`;
 
@@ -93,6 +98,7 @@ function createFlag(element, type, background = "#fff", color = "#000") {
   // Mutate Post
   element.innerHTML = header.outerHTML;
   element.style.setProperty("text-align", "center");
-  element.style.setProperty("magin", "5px");
-  element.style.setProperty("background-color", background, "important");
+  element.style.setProperty("border", "2px solid", "important")
+  element.style.setProperty("margin", "5px");
+  element.style.setProperty("border-color", border, "important");
 }

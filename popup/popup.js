@@ -1,3 +1,6 @@
+// To know if plugin is runing unpacked
+const IS_DEV_MODE = true;
+
 // In-page cache of the user's options
 const options = {
   polls: false,
@@ -17,9 +20,13 @@ chrome.storage.sync.get("options", function (data) {
 
 let optionsForm = document.getElementById("popup-form");
 
+// -- Let's hide debuging from our users
+!IS_DEV_MODE && (document.getElementById("debug-input").style.display = "none");
+
 optionsForm.addEventListener("change", function (event) {
   options[event.target.name] = event.target.checked;
   chrome.storage.sync.set({ options });
+  chrome.tabs.reload(function(){});
 });
 
 function updateForm() {

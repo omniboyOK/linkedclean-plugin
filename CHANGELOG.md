@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.2] - 2020-12-05
+
+### Added
+
+- Changing options will refresh the tab
+
+### Changed
+
+- Debug option now hide on production
+
+### Fixed
+
+- Removed background script dependency as it wasn't necesary
+
 ## [0.6.1] - 2020-12-05
 
 ### Changed

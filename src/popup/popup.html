@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>LinkedClean</title>
+    <link rel="stylesheet" href="../dist/styles/semantic.min.css" />
+    <link rel="stylesheet" href="./popup.css" />
+  </head>
+
+  <body>
+    <h2 class="ui header" id="main-header">
+      <img src="../images/linkedclean128.png" class="ui circular image" />
+      LinkedClean
+    </h2>
+
+    <div class="ui divider"></div>
+
+    <div class="ui container" id="main-container">
+      <h4>Opciones</h4>
+      <form class="ui form" id="popup-form">
+        <div class="grouped fields">
+          <div class="field" id="debug-input">
+            <div class="ui slider checkbox">
+              <input
+                type="checkbox"
+                id="debug-checkbox"
+                name="debug"
+                checked="checked"
+                aria-label="Modo depuración"
+              />
+              <label><span>💻</span> Debug</label>
+            </div>
+          </div>
+          <div class="field">
+            <div class="ui slider checkbox">
+              <input
+                type="checkbox"
+                id="polls-checkbox"
+                name="polls"
+                checked="checked"
+                aria-label="Filtrar cuestionarios"
+              />
+              <label><span>📃</span> Cuestionarios</label>
+            </div>
+          </div>
+          <div class="field">
+            <div class="ui slider checkbox">
+              <input
+                type="checkbox"
+                id="suggestions-checkbox"
+                name="polls"
+                checked="checked"
+                aria-label="Filtrar publicaciones sugeridas"
+              />
+              <label><span>📃</span> Post Sugeridos</label>
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <div class="ui divider"></div>
+
+      <p>Estos cambios requieren recargar la página web</p>
+    </div>
+
+    <script defer src="../dist/popup/popup.js"></script>
+  </body>
+</html>
